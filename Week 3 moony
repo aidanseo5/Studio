@@ -30,14 +30,22 @@ function moony_iterative(n) {
         return count === n 
               ? output
               : iter(count+1, 
-                    stack_frac())
+                    stack_frac(ratio, 
+                    beside_frac(ratio,circle,blank),
+                    beside_frac(ratio, square, output)));
     }
+     return iter(1, circle);
+}
+show(moony_iterative(5));
 
 
-
-
-
-
+/* Big theta ,  o  = n 
+    Big omega = constant 
+        (big omega can be n , you can find the "the most favorable")
+     Assumption : all primitive functions take the same amount of resource
+                 ex) stack, beside take same amount  
+                
+                However , not all primitive take the same amount */ 
 
 
 
