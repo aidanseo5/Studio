@@ -22,7 +22,7 @@ function moony(n){
                         beside_frac(ratio, square, moony(n-1)));
 }
 
-//show(moony(5));
+show(moony(5));
 
 function moony_iterative(n) { 
     function iter(count, output){
@@ -36,7 +36,7 @@ function moony_iterative(n) {
     }
      return iter(1, circle);
 }
-show(moony_iterative(5));
+//show(moony_iterative(5));
 
 
 /* Big theta ,  o  = n 
