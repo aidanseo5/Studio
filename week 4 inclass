@@ -1,5 +1,5 @@
 
-// 1.  
+// 1.  number --> number
 function compose(f, g){
 return x => f(g(x));
 }
