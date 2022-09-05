@@ -1,0 +1,57 @@
+
+// Value: ["x", ["y", ["z", null]]]
+
+function every_second(items) {
+  return is_null(tail(items))
+         ? null
+         : is_null(tail(tail(items))) 
+         ? null
+         :pair(head(tail(items)), every_second(tail(tail(items))));
+}
+//every_second(list("a", "x", "b", "y", "c", "z", "d"));
+
+
+
+
+
+unction sums(items) {
+    function helper(xs, even_rank, even_sum, odd_sum) {
+        return is_null(xs)
+            ? list(even_sum, odd_sum)
+            : even_rank
+            ? helper(tail(xs), false, even_sum + head(xs), odd_sum)
+            : helper(tail(xs), true, even_sum, odd_sum + head(xs));
+        
+    }
+    return helper(items, true, 0, 0);
+}
+
+
+
+function sums(xs) {
+    if (is_null(xs)) {
+        return list(0, 0);
+    } else if (is_null(tail(xs))) {
+        return list(head(xs), 0);
+    } else {
+        const wish = sums(tail(tail(xs)));
+        return list(head(xs) + head(wish), head(tail(xs)) + head(tail(wish)));
+    }
+}
+sums(list(1, 2, 3, 4, 5, 6, 7));
+
+function sums(items) {
+    function odd(xs) {
+        return (is_null(xs) || is_null(tail(xs))) 
+               ? 0
+               : head(tail(xs)) + odd(tail(tail(xs)));
+    } 
+    function even(xs) {
+        return (is_null(xs))
+               ? 0
+               : is_null(tail(xs))
+               ? head(xs)
+               : head(xs) + even(tail(tail(xs)));
+    }
+    return list(even(items), odd(items));
+}
