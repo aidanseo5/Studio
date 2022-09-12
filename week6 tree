@@ -1,3 +1,17 @@
+
+/*** 설명
+x=== list(4)  (const x= list(4)) false
+head(z) === y  (const z = list(y,3,x))
+
+a list of numbers and tree of numbers : list(1,2,3)
+
+** Lists library 
+
+order : f( a, f( b, ''''''' f())) <------  way
+
+accumulate(x-y, 0, list(1,2,3)) = 2 
+
+*/
 //1 
 
 function my_map(f, xs) {
@@ -7,12 +21,7 @@ function my_map(f, xs) {
 
 
 function remove_duplicates(lst) {
- const org = lst ; 
- function iter(a, org ){
-     return a !== head(org)
-            ? iter(a,tail(org))
-            : false;
- }
- return filter(x => iter(x,lst),lst );
+    return accumulate((x, y) => pair(x, filter(z => !equal(z, x), y)), null, lst);
 }
-remove_duplicates(list(1, 2, 3, 4, 4, 3, 2, 1, 2));
+
+remove_duplicates(list(1, 2, 3, 4, 4, 3, 2, 1, 2)); 
