@@ -1,123 +1,18 @@
+//1 
 
-
-function append2(xs, ys){
-    return is_null(xs)
-           ? ys
-           : pair(head(xs) , append2(tail(xs),ys));
+function my_map(f, xs) {
+  return accumulate((x,y)=>pair(f(x),y),null, xs); 
 }
-// Order of growth in time, space : theta (N)
+//my_map(x => x + 1, list(1, 2, 3));
 
-function reverse2(lst) {
-    return is_null(lst)
-            ? null
-            : append(reverse2(tail(lst)),list(head(lst)));
-}
- // run time : theta (n ^2 ) apppend 포함임 
- 
- function reverse3(xs){
-     function rev(original , reversed){
-         return is_null(original)
-                ? reversed 
-                : rev (tail(original), pair(head(original),reversed));
-     }
-     return rev(xs, null);
+
+function remove_duplicates(lst) {
+ const org = lst ; 
+ function iter(a, org ){
+     return a !== head(org)
+            ? iter(a,tail(org))
+            : false;
  }
- 
- function scale_list(xs,k){
-     return is_null(xs)
-            : null
-            : pair(k*head(xs), scale_list(tail(xs),k));
- }
-function square_list(xs) {
-    const square = x => x * x;
-    return is_null(xs)
-            ? null
-            : pair(square(head(xs)),square_list(tail(xs))); }
-
-function map(f, xs) {
-    return is_null(xs)
-            ? null
-            : pair(f(head(xs)), map(f, tail(xs)));
+ return filter(x => iter(x,lst),lst );
 }
-function scale_list(xs, k) {
-    return map(x => k * x, xs);
-}
-function square_list(xs) {
-    return map(x => x * x, xs);
-}
-function even_numbers(xs) {
-    return is_null(xs)
-            ? null
-            : head(xs) % 2 === 0
-            ? pair(head(xs), even_numbers(tail(xs)))
-            : even_numbers(tail(xs));
-}
-function filter(pred, xs) {
-    return is_null(xs)
-            ? null
-            : pred(head(xs))
-            ? pair(head(xs), filter(pred, tail(xs)))
-            : filter(pred, tail(xs));
-}
-function accumulate(f, initial, xs) {
-    return is_null(xs)
-            ? initial
-            : f(head(xs), accumulate(f, initial, tail(xs)));
-}
-function list_sum(xs) {
-    return accumulate((x, y) => x + y, 0, xs);
-}
-function count_data_items(tree) {
-    return is_null(tree)
-            ? 0
-            : ( is_list(head(tree))
-            ? count_data_items(head(tree))  
-            : 1 )+ count_data_items(tail(tree));
-}
-function scale_tree(tree, k) {
-    return map(sub_tree =>
-            !is_list(sub_tree)
-                ? k * sub_tree
-                : scale_tree(sub_tree, k),tree);
-}
-function map_tree(f, tree) {
-    return map(sub_tree =>
-            !is_list(sub_tree)
-                ? f(sub_tree)
-                : map_tree(f, sub_tree),tree);
-}
-function append_iter(xs, ys) {
-    return is_null(xs)
-            ? ys
-            : append_iter(tail(xs), pair(head(xs), ys));
-}
-function append(xs, ys) {
-    return append_iter(reverse(xs), ys);
-}
-function app(current_xs, ys, c) { // Iterative process
-return is_null(current_xs)
-       ? c(ys)
-       : app(tail(current_xs), ys,x => c(pair(head(current_xs), x)));
-}
-function append_iter(xs, ys) {
-    return app(xs, ys, x => x);
-}
-
-function fractal_5(rune, n) { // Recursive process
-    return n === 1 
-        ? rune
-        : beside(rune, fractal_5(stack(rune, rune), n - 1));
-}
-
-function frac(rune, n, c) { // Iterative process
-    return n === 1 
-        ? c(rune)
-        : frac(stack(rune, rune), n - 1, res => c(beside(rune, res)));
-}
-function fractal_5_iter(rune, n) {
-    return frac(rune, n, rune => rune);
-}
-
-
-
-
+remove_duplicates(list(1, 2, 3, 4, 4, 3, 2, 1, 2));
