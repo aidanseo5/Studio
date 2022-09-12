@@ -19,9 +19,44 @@ function my_map(f, xs) {
 }
 //my_map(x => x + 1, list(1, 2, 3));
 
-
+//2
 function remove_duplicates(lst) {
     return accumulate((x, y) => pair(x, filter(z => !equal(z, x), y)), null, lst);
 }
 
-remove_duplicates(list(1, 2, 3, 4, 4, 3, 2, 1, 2)); 
+//3
+
+// In class  Q. 2 
+
+function subsets(xs) {
+    if (is_null(xs)) {
+        return list(null);
+    } else {
+        const subsets_rest = subsets(tail(xs));
+        const x = head(xs);
+        const has_x = map(s =>pair(x, s), subsets_rest);
+        return append(subsets_rest, has_x);
+    }
+}
+// SOLUTION 2:
+function subsets_2(xs) {
+    return accumulate(
+            (x, ss) => append(ss, map(s => pair(x, s), ss)),
+                        list(null),
+                        xs);
+}
+// Q.3
+function permutations(s) {
+    return is_null(s)
+            ? list(null)
+            : accumulate(append, null,
+                    map(x => map(p => pair(x, p),
+                                    permutations(remove(x, s))),
+                        s));
+
+}
+
+permutations(list(1,2,3));
+
+
+
