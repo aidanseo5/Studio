@@ -26,6 +26,8 @@ function remove_duplicates(lst) {
 
 //3
 
+
+
 // In class  Q. 2 
 
 function subsets(xs) {
