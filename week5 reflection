@@ -1,0 +1,24 @@
+const tree = list(1,list(2,list(1,2)),list(3,3));
+
+
+function tree_sum(tree){
+   return is_null(tree)
+    ? 0
+    : (is_number(head(tree))?head(tree) : tree_sum(head(tree))) +tree_sum(tail(tree));
+    
+    
+    
+}
+function acccumulate_tree(f,op,initial,tree){
+ return accumulate( (x,y)=> is_list(x)
+                        ?op(acccumulate_tree(f, op, initial,x ) , y)
+                        : op(f(x),y)  , initial , tree);
+  
+  
+  
+}
+
+acccumulate_tree(x=>list(x) , append , null , tree);
+
+
+
