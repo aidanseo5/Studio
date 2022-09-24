@@ -38,10 +38,10 @@ const combi_C = map( xs=>pair(head(coins),xs),combi_B);
 return append(combi_A, combi_C);
 }
 }
+map(x=> pair(1,x), null);
 
-//makeup_amount(10, list( 10, 5,   5));
 
-pair(5,list(4));
+
 // In class  Q. 2 
 
 function subsets(xs) {
