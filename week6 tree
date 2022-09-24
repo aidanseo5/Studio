@@ -25,6 +25,27 @@ function remove_duplicates(lst) {
 }
 
 //3
+function makeup_amount(x, coins) {
+ if (x === 0) {
+    return list(null);
+ } else if (x < 0 || is_null(coins)) {
+    return null;
+  } else {
+// Combinations that do not use the head coin.
+const combi_A = makeup_amount(x, tail(coins));
+
+// Combinations that do not use the head coin
+// for the remaining amount.
+const combi_B = makeup_amount(x-head(coins), tail(coins));
+// Combinations that use the head coin.
+
+const combi_C = map( xs=>pair(head(coins),xs),combi_B);
+
+return append(combi_A, combi_C);
+}
+}
+
+makeup_amount(22, list(1, 10, 5, 20, 1, 5, 1, 50));
 
 
 
@@ -58,7 +79,7 @@ function permutations(s) {
 
 }
 
-permutations(list(1,2,3));
+
 
 
 
