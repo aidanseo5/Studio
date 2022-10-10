@@ -68,12 +68,21 @@ foo(1);
 
 //Inclass
 function count_pairs(x) {
- if (!is_pair(x)) {
- return 0;
- } else {
- return 1 + count_pairs(head(x)) + count_pairs(tail(x));
- }
-}
+    let pairs = null;
+    function check(y) {
+        if (!is_pair(y)) {
+            return undefined;
+        } else if (!is_null(member(y, pairs))) {
+            return undefined;
+        } else {
+            pairs = pair(y, pairs);
+            check(head(y));
+            check(tail(y));
+        }
+    }
+    check(x);
+    return length(pairs);
+} 
 
 const three = list(1, 2, 3);
 display(count_pairs(three));
@@ -87,7 +96,11 @@ const seven_a = pair(null, null);
 const seven_b = pair(seven_a, seven_a);
 const seven = pair(seven_b, seven_b);
 display(count_pairs(seven));
+draw_data(seven);
 
+const loop = list(1,2,3);
+set_tail(loop, loop);
+display(count_pairs(loop));
 
 
 
