@@ -1,0 +1,65 @@
+// Q1
+const sensor = ev3_colorSensor();
+const left_motor = ev3_motorB();
+const right_motor = ev3_motorC();
+
+// while(true) {
+//     display(ev3_ambientLightIntensity(sensor));
+// }
+
+// Q2
+function start_motors() {
+    ev3_motorSetSpeed(left_motor, 200);
+    ev3_motorSetSpeed(right_motor, 200);
+    ev3_motorStart(left_motor);
+    ev3_motorStart(right_motor);
+}
+
+function stop_motors() {
+    ev3_motorStop(left_motor);
+    ev3_motorStop(right_motor);
+}
+
+while(true) {
+    const reading = ev3_ambientLightIntensity(sensor);
+}
+
+
+// Q3
+
+// old
+
+
+const spd = 250;
+
+// initialise
+
+
+// hit
+const turn_deg = math_random() < 0.5 ? 140 : -140;
+
+let pos_b = ev3_motorGetPosition(left_motor);
+let pos_c = ev3_motorGetPosition(right_motor);
+
+// turn 90deg counterclockwise
+ev3_runToAbsolutePosition(left_motor, pos_b + turn_deg, 250);
+ev3_runToAbsolutePosition(right_motor, pos_c - turn_deg, 250);
+ev3_pause(1000);
+
+// move forward 30cm
+const pos_30cm = 3000;
+ev3_runToRelativePosition(left_motor, pos_30cm, 200);
+ev3_runToRelativePosition(right_motor, pos_30cm, 200);
+ev3_pause(pos_30cm);
+pos_b = ev3_motorGetPosition(left_motor);
+pos_c = ev3_motorGetPosition(right_motor);
+
+// turn again
+ev3_runToAbsolutePosition(left_motor, pos_b - turn_deg, 250);
+ev3_runToAbsolutePosition(right_motor, pos_c + turn_deg, 250);
+ev3_pause(1000);
+
+// move forward 30cm
+ev3_runToRelativePosition(left_motor, pos_30cm, 200);
+ev3_runToRelativePosition(right_motor, pos_30cm, 200);
+ev3_pause(pos_30cm);
