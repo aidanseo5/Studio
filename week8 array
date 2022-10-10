@@ -63,3 +63,50 @@ function foo(x) {
 // Breakpoint #1
 foo(1);
 // Breakpoint #5
+
+
+
+//Inclass
+function count_pairs(x) {
+ if (!is_pair(x)) {
+ return 0;
+ } else {
+ return 1 + count_pairs(head(x)) + count_pairs(tail(x));
+ }
+}
+
+const three = list(1, 2, 3);
+display(count_pairs(three));
+
+const four_a = pair(null, null);
+const four_b = pair(four_a, four_a);
+const four = pair(four_b, null);
+display(count_pairs(four));
+
+const seven_a = pair(null, null);
+const seven_b = pair(seven_a, seven_a);
+const seven = pair(seven_b, seven_b);
+display(count_pairs(seven));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
