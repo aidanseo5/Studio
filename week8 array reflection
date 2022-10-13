@@ -1,90 +1,38 @@
-// can use ' ... ' for function body 
-
-// for primitive write inside block, other e.g array use arrow
-
-// environmental odel
-let z = 1;
-function f(g) {
-    let z = 3; // diff from reflection here
-    return g(z);
-}
-f(y => y + z);
-undefined;
-
-//q1 
-function change(x, new_value) {
- x = new_value;
-}
-
-let x = 0;
-change(x, 1);
 
 
-//q2
+// q.2
 
-function d_filter(pred,xs){
-    if (is_null(xs)){
-        return null; 
+
+function fib(n){
+    if(n<=1){
+        return n;
     }
     else{
-        if(!pred(head(xs))){
-            return d_filter(pred,tail(xs));
+        let a = 0 ;
+        let b = 1 ;
+        for (let k=2; k<=n; k= k+1){
+            let next = a + b; // b= a+ b , a = b -a possible 
+            a=b ;
+            b= next;
         }
-        else{
-            set_tail(xs,d_filter(pred,tail(xs)));
-            return xs; 
-        }
+        return b; 
     }
 }
-const L = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 11);
-d_filter(x => x % 2 === 0, L); // returns [2, [4, [6, [8, null]]]]
-L;
 
-// 3
-
-
-//Inclass
-function count_pairs(x) {
-    let pairs = null;
-    function check(y) {
-        if (!is_pair(y)) {
-            return undefined;
-        } else if (!is_null(member(y, pairs))) {
-            return undefined;
-        } else {
-            pairs = pair(y, pairs);
-            check(head(y));
-            check(tail(y));
-        }
-    }
-    check(x);
-    return length(pairs);
-} 
-
-const three = list(1, 2, 3);
-display(count_pairs(three));
-
-const four_a = pair(null, null);
-const four_b = pair(four_a, four_a);
-const four = pair(four_b, null);
-display(count_pairs(four));
-
-const seven_a = pair(null, null);
-const seven_b = pair(seven_a, seven_a);
-const seven = pair(seven_b, seven_b);
-display(count_pairs(seven));
-draw_data(seven);
-
-const loop = list(1,2,3);
-set_tail(loop, loop);
-display(count_pairs(loop));
-
-
-
-
-
-
-
+// q.3
+function mchoose(n, k) {
+ if (read(n, k) !== undefined) {
+ return read(n, k);
+ } else {
+ const result = k > n
+ ? 0
+: k === 0 || k === n
+? 1
+: mchoose(n - 1, k) + mchoose(n - 1, k - 1);
+ write(n, k, result);
+ return result;
+ }
+}
 
 
 
