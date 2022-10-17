@@ -1,7 +1,8 @@
+//q.2 
 function bubblesort_list(L) {
  const len = length(L);
  for (let i = len - 1; i >= 1; i = i - 1) {
-    const lst = L;    
+    let lst = L;    
     for (let j = 0 ; j< i; j= j+1){
         if (head(lst)> head(tail(lst))){
             const temp = head(lst); 
@@ -13,8 +14,24 @@ function bubblesort_list(L) {
     }
 }
 }
+function bubblesort_list_mr(L) {
+    const len = length(L);
+    for (let i = len - 1; i >= 1; i = i - 1) {
+        let p = L; // starting pointer
+        for (let j = 0; j < i; j = j + 1) {
+            let curr = head(p);
+            let next = head(tail(p));
+            // swap clause
+            if(curr > next) {
+                set_head(p, next);
+                set_head(tail(p), curr);
+            }
+            p = tail(p);
+        }
+    }
+}
 
 const LL = list(3, 5, 2, 4, 1);
-bubblesort_list(LL);
+bubblesort_list_mr(LL);
 LL;
-    
+// q.3
