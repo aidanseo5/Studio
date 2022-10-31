@@ -1,5 +1,4 @@
-
-// Calculator language 
+/ Calculator language 
 // * Adding booleans, conditionals, and sequences 
 // * Adding blocks and declarations
 // * Adding compound functions (but no return)
@@ -13,8 +12,8 @@ function evaluate(component, env) {
            ? literal_value(component)
            : is_conditional(component)
            ? eval_conditional(component, env)
-           : is_sequence(component)  //changed
-           ? eval_sequence(sequence_statements(component), env)
+           : is_sequence(component)         
+           ? eval_sequence(reorder_statements( sequence_statements(component)), env)//q.1 changed
            : is_name(component)
            ? lookup_symbol_value(symbol_of_name(component), env)
            : is_block(component)
@@ -34,6 +33,28 @@ function evaluate(component, env) {
                            lambda_body(component), env)
            : error(component, "Unknown component:");
 }
+//q.1 changed
+function reorder_statements(stmts) {
+    // split_statements splits given stmts
+    // into pair(function_declarations,
+    //           all_other_statements)
+    function split_statements(stmts) {
+        if (is_null(stmts)) {
+            return pair(null, null);
+        } else {
+            const first_statement = head(stmts);
+            const split_rest = split_statements(tail(stmts));
+            return is_function_declaration(first_statement)
+                   ? pair(pair(first_statement, head(split_rest)),
+                          tail(split_rest))
+                   : pair(head(split_rest), 
+                          pair(first_statement, tail(split_rest)));
+        }
+    }
+    const split = split_statements(stmts);
+    return append(head(split), tail(split));
+}
+
 
 function eval_conditional(comp, env) {
    return is_truthy(evaluate(conditional_predicate(comp), env))
@@ -75,7 +96,7 @@ function eval_block(component, env) {
 /* unassigned refers to a Source value 
 
 */
-const unassigned = () =. NaN ;
+const unassigned = () =>. NaN ;
 
 function list_of_unassigned(symbols) {
     return map(symbol => "*unassigned*", symbols);
