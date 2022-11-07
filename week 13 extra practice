@@ -1,0 +1,50 @@
+// s13 extra practice
+function copy_adjacency_matrix(x){
+    const len = array_length(x);
+    const len2 = array_length(x[0]);
+    const M = [];
+    let rr = 0;
+   
+    while (rr < len){
+        M[rr]=[];
+         let cc = 0;
+        while(cc<len2){
+         
+         M[rr][cc]= x[rr][cc];    
+         cc=cc+1;
+        }
+     rr= rr+1;
+    }
+    return M;
+    
+}
+const x = [[0, 1, 1, 0, 1, 1, 1], // from node 0
+[0, 0, 0, 0, 0, 0, 0], // from node 1
+[0, 0, 0, 0, 0, 0, 1], // from node 2
+[0, 0, 0, 0, 0, 0, 0], // from node 3
+[0, 0, 0, 0, 1, 1, 0], // from node 4
+[0, 0, 0, 0, 0, 0, 0], // from node 5
+[0, 0, 1, 0, 0, 0, 0]];
+copy_adjacency_matrix(x);
+//B
+function reverse_edge(matrix, a, b){
+    
+}
+//C
+ function transpose(x){
+  function swap (i,j,m,n){
+      const temp = x[i][j];
+      x[i][j] = x[m][n];
+      x[m][n] = temp;
+  }
+
+ 
+const n = array_length(x);
+for (let r =0 ; r < n ; r= r+1){
+    for ( let c= r+1 ; c < n ; c = c+1){
+        swap (r,c,c,r);
+    }
+}
+return x;
+}
+transpose(x);
