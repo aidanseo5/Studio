@@ -1,0 +1,181 @@
+//Studio 09F: mastery check 2
+
+//Environment Model
+
+let x = 1;
+
+function foo() {
+    x = x + 1;
+    function goo() {
+        let joo = () => x;
+        {
+            let i = 0;
+            while (i < x) {
+                joo = () => x;
+                i = i + 1;
+            }
+        }
+        return joo;
+    }
+    return goo;
+}
+//Breakpoint A
+const moo = foo();
+const hoo = moo();
+x = x + 1;
+hoo();
+
+/*
+Q1: at breakpoint A, how many names are declared in the program enviroment?
+
+Q2: How many environment frames are created in total, 
+excluding the global environment?
+
+Q3: How many function objects are created in total?
+
+Q4: What is the final result of the program?
+
+*/
+
+
+
+//Memoization
+
+//consider the basic implementation of calculating factorial of a non-negative integer
+function factorial(n) {
+    return n === 0 ? 1 : n * factorial(n - 1);
+}
+
+
+function fact_memo(n) {
+    const mem = [];
+    function fact(n) {
+        function read(n) {
+            return mem[n];
+        }
+        function write(n, res) {
+            mem[n] = res;
+        }
+        if (read(n) !== undefined) {
+            return read(n);
+        } else if (n === 0) {
+            return 1;
+        } else {
+            const res = display(fact_memo(n - 1) * n);
+            write(n, res);
+            return res;
+        }
+    }
+    return fact(n);
+}
+
+fact_memo(3);
+fact_memo(5);
+
+//Q1: What will be displayed in the REPL for the above program?
+this line is to prevent you from running the program.
+//Q2: What is the runtime of fact_memo(n) in big theta notation?
+
+//Q3: Is memoization useful in this case? If not, how could memoization
+//be used more meaningfully for factorial?
+
+
+
+//Streams
+
+
+/*
+Q1: Twin Primes (adapted from CS2030 AY ??/?? Lab 7)
+A prime number is a natural number greater than 1 that is only divisible by 1 
+and itself. 
+A twin prime is one of a pair of prime numbers with a difference of 2. 
+For example, 41 and 43 are twin primes.
+
+With a single return statement, define the function twin_primes which 
+returns an infinite stream of increasing twin primes.
+
+The helper functions is_prime and positive_integers have already been declared for you.
+
+
+eval_stream(twin_primes, 15) //returns list(3, 5, 7, 11, 13, 17, 19, 29, 31, 41, 43, 59, 61, 71, 73)
+
+*/
+
+function is_prime(n) { //returns true if n is prime, false otherwise
+    return n > 1 && is_null(filter(x => n % x === 0, enum_list(2, math_floor(math_sqrt(n)))));
+} 
+
+function positive_integers() { //returns an infinite stream of positive integers from 1
+    function helper(n) {
+        return pair(n, () => helper(n + 1));
+    }
+    return helper(1);
+} 
+
+function twin_primes() {
+    
+
+}
+
+//testing
+// display(eval_stream(twin_primes(), 15));
+
+
+
+/*
+Q2: normalized_mean (adapted from CS2030 AY ??/?? Lab 7)
+
+Given a stream of integers S, we define the following terms:
+    sum: sum of all integers in S
+    n: number of integers in S
+    max: the largest integer in S
+    min: the smallest integer in S
+    mean: sum / n
+We can find the normalised mean of the numbers in S using the formula
+(mean - min)  / (max - min)
+
+Define the function normalized_mean which takes a stream of integers S and 
+returns the normalized mean, with only one pass through the stream.
+*/
+
+function normalized_mean(S) {
+
+}
+
+//testing
+//normalized_mean(stream(1, 2, 3, 4, 5)); // returns 0.5
+
+
+/*
+Q3: point_stream (adapted from CS2030S AY20/21 Sem 2 PE2)
+
+for this question, recall the point Abstract Data Type from the curves module.
+A point encapsulates the values x and y which represent its position on a 2D cartesian plane.
+
+We define a point_transformer as a function which takes 
+a point as input and returns a point.
+
+Define a function point_stream that takes in a point p and a point_transformer f
+such that the elements of the stream are [p,  f(p), f(f(p)) ...]
+
+point_stream(make_point(1, 1), p => make_point(x_of(p), y_of(p) + 1))
+
+*/
+
+function make_point(x, y) {
+    return pair(x, y);
+}
+
+function x_of(p) {
+    return head(p);
+}
+
+function y_of(p) {
+    return tail(p);
+}
+
+function point_stream(p, f) {
+
+}
+//testing
+//eval_stream(point_stream(make_point(1, 1), p => make_point(x_of(p), y_of(p) + 1)), 10); 
