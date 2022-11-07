@@ -69,11 +69,10 @@ function fact_memo(n) {
     return fact(n);
 }
 
-fact_memo(3);
-fact_memo(5);
+
 
 //Q1: What will be displayed in the REPL for the above program?
-this line is to prevent you from running the program.
+//this line is to prevent you from running the program.
 //Q2: What is the runtime of fact_memo(n) in big theta notation?
 
 //Q3: Is memoization useful in this case? If not, how could memoization
@@ -175,7 +174,7 @@ function y_of(p) {
 }
 
 function point_stream(p, f) {
-
+ return pair(p, ()=> stream_map(f, point_stream(p,f)));
 }
 //testing
-//eval_stream(point_stream(make_point(1, 1), p => make_point(x_of(p), y_of(p) + 1)), 10); 
+eval_stream(point_stream(make_point(1, 1), p => make_point(x_of(p), y_of(p) + 1)), 10); 
