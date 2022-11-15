@@ -41,6 +41,28 @@ d_filter(x => x % 2 === 0, L); // returns [2, [4, [6, [8, null]]]]
 L;
 
 // 3
+let a = 10;
+function foo(x) {
+ let b = 0;
+ function goo(x) {
+ let a = 30;
+ if (x <= 2) {
+ a = a + x;
+ b = b + x;
+ // Breakpoint #4
+ } else {
+ // Breakpoint #3
+ goo(x - 1);
+ }
+ }
+ a = a + x;
+ b = b + x;
+ // Breakpoint #2
+ goo(3);
+}
+// Breakpoint #1
+foo(1);
+// Breakpoint #5
 
 
 //Inclass
