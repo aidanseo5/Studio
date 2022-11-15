@@ -1,39 +1,37 @@
-
-
-// q.2
-
-
-function fib(n){
-    if(n<=1){
-        return n;
-    }
-    else{
-        let a = 0 ;
-        let b = 1 ;
-        for (let k=2; k<=n; k= k+1){
-            let next = a + b; // b= a+ b , a = b -a possible 
-            a=b ;
-            b= next;
+function count_pairs(x) {
+    let pairs = null;
+    function check(y) {
+        if (!is_pair(y)) {
+            
+        } else if (!is_null(member(y, pairs))) {
+           
+        } else {
+            pairs = pair(y, pairs);
+            check(head(y));
+            check(tail(y));
         }
-        return b; 
     }
-}
+    check(x);
+    return length(pairs);
+} 
 
-// q.3
-function mchoose(n, k) {
- if (read(n, k) !== undefined) {
- return read(n, k);
- } else {
- const result = k > n
- ? 0
-: k === 0 || k === n
-? 1
-: mchoose(n - 1, k) + mchoose(n - 1, k - 1);
- write(n, k, result);
- return result;
- }
-}
+const three = list(1, 2, 3);
+display(count_pairs(three));
 
+const four_a = pair(null, null);
+const four_b = pair(four_a, four_a);
+const four = pair(four_b, null);
+display(count_pairs(four));
+
+const seven_a = pair(null, null);
+const seven_b = pair(seven_a, seven_a);
+const seven = pair(seven_b, seven_b);
+display(count_pairs(seven));
+draw_data(seven);
+
+const loop = list(1,2,3);
+set_tail(loop, loop);
+display(count_pairs(loop));
 
 
 
